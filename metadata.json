@@ -1,0 +1,5 @@
+{
+  "name": "W.O.T. Fitness goals",
+  "description": "A progressive web application to track hybrid workout sessions, supporting both standard sets and dynamic set-by-set logging.",
+  "requestFramePermissions": []
+}
