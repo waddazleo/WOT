@@ -29,7 +29,7 @@ interface TutorialData {
 }
 
 const PreviousVal: React.FC<{ val: string, label: string }> = ({ val, label }) => (
-  <div className="absolute -top-5 left-0 right-0 flex justify-center opacity-70 hover:opacity-100 transition-opacity">
+  <div className="absolute -top-5 left-0 right-0 flex justify-center opacity-70 hover:opacity-100 transition-opacity pointer-events-none">
     <span className="text-[10px] font-mono text-navy-400 bg-offwhite-100 px-1.5 rounded border border-navy-100 whitespace-nowrap">
       Prev: <span className="font-bold text-navy-600">{val || '0'}</span>
     </span>
@@ -566,7 +566,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
               {isLoggedToday && onRemove && (
                  <button 
                    type="button"
-                   onClick={(e) => {
+                   onPointerDown={(e) => {
                      e.preventDefault();
                      e.stopPropagation();
                      if (isDeleting) {

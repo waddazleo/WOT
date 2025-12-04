@@ -1,10 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
-import { Dumbbell, CalendarOff, ArrowUpDown, Check } from 'lucide-react';
+import { Dumbbell, CalendarOff, ArrowUpDown, Check, Flame } from 'lucide-react';
 
 import Header from './components/Header';
 import DaySelector from './components/DaySelector';
 import ExerciseCard from './components/ExerciseCard';
 import { VolumeStats } from './components/VolumeStats';
+import WarmupModal from './components/WarmupModal';
 import { WEEK_DAYS, EXERCISE_DB } from './constants';
 import { LogsMap, LogEntry } from './types';
 import { getStoredLogs, saveStoredLogs, clearStoredLogs, getStoredOrder, saveStoredOrder } from './services/storageService';
@@ -20,6 +22,9 @@ const App: React.FC = () => {
   
   // Stats State
   const [showStats, setShowStats] = useState(false);
+
+  // Warmup State
+  const [showWarmup, setShowWarmup] = useState(false);
 
   // Initialize
   useEffect(() => {
@@ -131,6 +136,14 @@ const App: React.FC = () => {
         <VolumeStats logs={logs} onClose={() => setShowStats(false)} />
       )}
 
+      {showWarmup && (
+        <WarmupModal 
+          dayInfo={activeDayInfo} 
+          exercises={currentExercises} 
+          onClose={() => setShowWarmup(false)} 
+        />
+      )}
+
       <DaySelector 
         days={WEEK_DAYS} 
         activeDay={activeDay} 
@@ -139,7 +152,7 @@ const App: React.FC = () => {
 
       <main className="max-w-3xl mx-auto p-4 space-y-6">
         {/* Day Header */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-navy-100 flex justify-between items-center">
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-navy-100 flex flex-col xs:flex-row justify-between items-start xs:items-center gap-4">
           <div>
             <h2 className="text-xl font-extrabold text-charcoal-800 tracking-tight">{activeDayInfo.full}</h2>
             <div className="flex items-center gap-2 text-mint-600 font-medium mt-1 text-sm uppercase tracking-wide">
@@ -148,34 +161,31 @@ const App: React.FC = () => {
             </div>
           </div>
           
-          <div className="flex items-center gap-3">
-             {/* Progress Bar (Hidden when reordering to save space/focus) */}
-             {!isRestDay && !isReordering && (
-                <div className="text-right hidden sm:block">
-                  <span className="text-xs text-navy-400 font-bold uppercase tracking-wider">Progress</span>
-                  <div className="w-24 h-2 bg-offwhite-200 rounded-full mt-1 overflow-hidden">
-                    <div 
-                      className="h-full bg-mint-500 rounded-full transition-all duration-1000" 
-                      style={{ 
-                        width: `${(currentExercises.filter(ex => logs[ex.id]?.date === new Date().toLocaleDateString('it-IT')).length / currentExercises.length) * 100}%` 
-                      }}
-                    />
-                  </div>
-                </div>
+          <div className="flex items-center gap-2 w-full xs:w-auto">
+             
+             {/* Warmup Button - The "Flame Rectangle" */}
+             {!isRestDay && (
+               <button
+                 onClick={() => setShowWarmup(true)}
+                 className="flex-1 xs:flex-none flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-bold bg-coral-50 text-coral-600 border border-coral-200 hover:bg-coral-100 hover:border-coral-300 shadow-sm transition-all active:scale-95 group"
+                 title="Smart Warm-up"
+               >
+                 <Flame size={18} className="fill-coral-500 text-coral-500 animate-pulse" />
+                 <span>Riscaldamento</span>
+               </button>
              )}
 
              {/* Reorder Toggle Button */}
              {!isRestDay && (
                <button
                  onClick={() => setIsReordering(!isReordering)}
-                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold transition-all shadow-sm border ${
+                 className={`flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm border ${
                    isReordering 
-                    ? 'bg-coral-100 text-coral-700 border-coral-200' 
+                    ? 'bg-navy-800 text-white border-navy-900' 
                     : 'bg-white text-navy-500 border-navy-200 hover:bg-offwhite-100'
                  }`}
                >
                  {isReordering ? <Check size={18} /> : <ArrowUpDown size={18} />}
-                 <span className="hidden xs:inline">{isReordering ? 'Fatto' : 'Ordina'}</span>
                </button>
              )}
           </div>

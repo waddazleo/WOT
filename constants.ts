@@ -39,8 +39,8 @@ export const EXERCISE_DB: Exercise[] = [
   // VENERDÌ
   { id: 'ven_1', day: 'ven', name: 'T-Bar Row (Focus Trapezi)', muscle: 'Upper Back', function: 'Retrazione scapolare' },
   { id: 'ven_2', day: 'ven', name: 'Lat Machine (Presa larga)', muscle: 'Schiena Ampiezza', function: 'Adduzione omero' },
-  { id: 'ven_3', day: 'ven', name: 'Rematore manubri Panca 45°', muscle: 'Dorsali', function: 'Estensione spalla' },
-  { id: 'ven_4', day: 'ven', name: 'Reverse Pec Deck', muscle: 'Deltoidi Post.', function: 'Abduzione orizzontale' },
+  { id: 'ven_3', day: 'ven', name: 'Chest-supported dumbbell row (45° bench)', muscle: 'Dorsali', function: 'Estensione spalla' },
+  { id: 'ven_4', day: 'ven', name: 'Cable Rear Delt Crossover', muscle: 'Deltoidi Post.', function: 'Abduzione orizzontale' },
   { id: 'ven_5', day: 'ven', name: 'Curl alternato con manubri', muscle: 'Bicipiti', function: 'Flessione gomito' },
   { id: 'ven_6', day: 'ven', name: 'Reverse Curl ai cavi', muscle: 'Avambracci', function: 'Flessione gomito prona' },
   { id: 'ven_7', day: 'ven', name: 'Wrist Curl con manubri', muscle: 'Flessori Polso', function: 'Flessione polso' },
